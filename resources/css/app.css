@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Rapikan DataTables layout */
+.dataTables_wrapper .dataTables_length {
+    margin-bottom: 20px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 6px 12px !important;
+    margin: 0 3px !important;
+    border-radius: 6px !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #2563eb !important;
+    color: white !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+    margin-top: 15px;
+}
+
+/* Hilangkan search bawaan DataTables (kita pakai search manual di form) */
+.dataTables_filter {
+    display: none !important;
+}
+
+/* Header tabel rapi */
+table.dataTable thead th {
+    padding: 12px 8px;
+    background: #f9fafb;
+    border-bottom: 2px solid #e5e7eb !important;
+}
+
+/* Biar kolom foto tidak terlalu kecil */
+td img {
+    border-radius: 8px;
+}
+
+/* Hover row */
+table.dataTable tbody tr:hover {
+    background-color: #f3f4f6;
+}
