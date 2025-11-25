@@ -31,11 +31,8 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Expose default port (Railway akan override ke $PORT)
+# Expose default port (Railway override ke $PORT)
 EXPOSE 8080
 
-RUN php artisan migrate --force || true
-
-# === PENTING: Pakai PORT dari environment Railway ===
-CMD sh -c "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
-
+# === PENTING: Jalankan migrate di runtime, pakai env Railway ===
+CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
