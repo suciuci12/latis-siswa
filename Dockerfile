@@ -19,29 +19,29 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install Node.js (untuk Vite)
+# Install Node.js (untuk Vite build)
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy app
+# Copy application files
 COPY . .
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Install NPM & Build Vite (penting!)
+# Install npm dependencies & build Vite
 RUN npm install
 RUN npm run build
 
-# Permission Laravel
+# Permission for Laravel
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
 # Expose port
 EXPOSE 8080
 
-# Jalankan migrate saat runtime
+# Run migrations at runtime (dengan env Railway)
 CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
