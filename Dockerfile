@@ -81,4 +81,9 @@ EXPOSE 8080
 # CMD: Jalankan migrate pakai env Railway,
 # lalu start Laravel dev server
 # ==============================
+RUN php artisan config:clear
+RUN php artisan cache:clear
+RUN php artisan route:clear
+RUN php artisan view:clear
+
 CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
