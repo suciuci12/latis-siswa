@@ -34,5 +34,8 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
 # Expose default port (Railway akan override ke $PORT)
 EXPOSE 8080
 
+RUN php artisan migrate --force || true
+
 # === PENTING: Pakai PORT dari environment Railway ===
 CMD sh -c "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
+
