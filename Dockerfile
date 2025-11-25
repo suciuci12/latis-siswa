@@ -31,8 +31,8 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Expose port 8080 for Railway
+# Expose default port (Railway akan override ke $PORT)
 EXPOSE 8080
 
-# Start Laravel
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+# === PENTING: Pakai PORT dari environment Railway ===
+CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
